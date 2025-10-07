@@ -1,0 +1,169 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+* {
+    font-family: 'Pretendard';
+    letter-spacing: -0.5px;
+
+}
+
+
+
+:root {
+    --strong-color: #000000;
+    --medium-color: #b3b3b3;
+    --light-color: #f2f2f2;
+    --none-color: white;
+    --primary-color: #0c6efd;
+    --danger-color: #dc3545;
+    --success-color: #188754;
+    --gradient: linear-gradient(180deg, #ffe1e10b, #ff9d9d12);
+}
+
+html,
+body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    margin: 0;
+}
+
+.header {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    background-color: white;
+    border-bottom: 1px dotted var(--medium-color);
+
+    width: 100%;
+
+
+    padding: 0 50px;
+    box-sizing: border-box;
+    height: 70px;
+}
+
+.area-main-content {
+    margin-left: 130px;
+}
+
+
+.main-content {
+    width: 95%;
+    min-width: 1400px;
+    min-height: 100%;
+    margin-top: 100px;
+}
+
+.footer {
+    margin: 0;
+
+    position: fixed;
+    z-index: 1;
+    top: 100px;
+}
+
+/* ------------------------------------- */
+/* 📌 CSS: 인쇄 모드 (@media print) 정의 */
+/* ------------------------------------- */
+@media print {
+
+    /* 1. 인쇄 시 배경 이미지/색상 출력을 강제합니다. */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* 2. 상위 BODY 및 전체 컨테이너 초기화 */
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        /* 인쇄 시 흰색 배경 보장 */
+        background-color: white !important;
+    }
+
+    /* 3. 인쇄 대상이 아닌 요소 숨기기 (헤더, 푸터, 필터) */
+    .header,
+    /* App.vue의 헤더 */
+    .footer,
+    /* App.vue의 푸터 */
+    .FILTER {
+        /* TabReport.vue의 필터 */
+        display: none !important;
+    }
+
+    /* 4. main-content의 레이아웃 재정의 */
+    .main-content {
+        /* 고정 폭 해제 및 마진 제거 */
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        min-height: auto !important;
+    }
+
+    /* 5. VIEWER의 배경 제거 및 인쇄 영역 설정 */
+    .VIEWER {
+        width: 100% !important;
+        max-width: none !important;
+
+        /* 뷰어 배경색 제거 (VIEWER의 background-color: var(--medium-color) 상쇄) */
+        background-color: white !important;
+
+        /* VIEW에서 설정된 패딩 제거 및 인쇄용으로 초기화 */
+        padding: 0 !important;
+        overflow: visible !important;
+
+        /* 인쇄 시작 지점으로 설정 */
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        box-shadow: none !important;
+
+        /* flex-direction: column; align-items: center; 속성은 유지 */
+    }
+
+    /* 6. PAGE 컴포넌트 스타일 재정의 및 분할 */
+    .PAGE {
+        /* 화면에서 인쇄할 때 페이지 간 마진을 제거하고, 인쇄 규격에 맞게 조정 */
+        margin: 0 auto 0 !important;
+        box-shadow: none !important;
+
+        /* A4 사이즈 강제 (브라우저 설정에 따라 다소 다를 수 있지만, 기본적으로 이 속성이 페이지 분할을 유도) */
+        width: 210mm !important;
+        height: 297mm !important;
+        max-width: none !important;
+        /* 화면에서 설정된 700px 제한 해제 */
+
+        /* 인쇄 시 페이지 분할 */
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .PAGE:last-child {
+        page-break-after: auto;
+    }
+
+    /* 가로 모드 페이지 지원 (HistoryPage 등) */
+    .PAGE_LANDSCAPE {
+        width: 297mm !important;
+        height: 210mm !important;
+        max-width: none !important;
+        /* 화면에서 설정된 990px 제한 해제 */
+    }
+
+    /* 7. 영수증 이미지 크기 보존 */
+    /* 영수증이 깨지지 않도록 이미지 크기 조정 속성 유지 */
+    .receipt-box {
+        height: 16cm !important;
+        /* 인쇄 시 높이 유지 */
+        border-color: black !important;
+        /* 옅은 색 대신 검은색으로 인쇄 */
+    }
+
+    .PAGE_CONTENT table th,
+    .PAGE_CONTENT table td {
+        border-color: black !important;
+    }
+}
