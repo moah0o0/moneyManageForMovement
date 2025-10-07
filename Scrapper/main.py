@@ -1,5 +1,5 @@
 import signal, sys
-from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler 
 from apscheduler.executors.pool import ThreadPoolExecutor
 
 from pocketbase import PocketBase
@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 # 1. 스케줄러 및 실행자 설정
 # ===============================================
 
-sched = BlockingScheduler(
+sched = BackgroundScheduler(
     executors={
         "default": ThreadPoolExecutor(8)
     },
@@ -111,10 +111,14 @@ if __name__ == "__main__":
     signal.signal(signal.SIGTERM, _shutdown)
     signal.signal(signal.SIGINT, _shutdown)
     
+
+    import time
+    print("BackgroundScheduler START.")
+    sched.start()
+
+    # 서비스가 종료되지 않도록 메인 스레드를 유지합니다.
     try:
-        print("--------------------------------------------------")
-        print("BlockingScheduler START. Press Ctrl+C to stop.")
-        print("--------------------------------------------------")
-        sched.start()
+        while True:
+            time.sleep(1)
     except (KeyboardInterrupt, SystemExit):
         pass
