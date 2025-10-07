@@ -16,9 +16,18 @@ class Scrapper:
         # 로그 파일 경로 설정
         self.ScheduleStartDate = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y-%m-%d %H:%M:%S")
         
-        log_dir = "logs"
+        current_file_path = os.path.abspath(__file__)
+
+
+        one_up = os.path.dirname(current_file_path)
+
+
+        base_dir = os.path.dirname(one_up)
+        log_dir = os.path.join(base_dir, "logs") 
+
         if not os.path.exists(log_dir):
             os.makedirs(log_dir)
+
             
         timestamp_for_file = datetime.now(ZoneInfo("Asia/Seoul")).strftime("%Y%m%d_%H%M%S")
         self.log_file_path = os.path.join(log_dir, f"{bankType}_{timestamp_for_file}.log")
